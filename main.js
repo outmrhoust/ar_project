@@ -1,6 +1,8 @@
 
 import * as THREE from 'three';
 import { ARButton } from 'three/addons/webxr/ARButton.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 
 let container;
 let camera, scene, renderer;
@@ -41,21 +43,49 @@ function init() {
 
   //
 
-  const geometry = new THREE.CylinderGeometry( 0.1, 0.1, 0.2, 32 ).translate( 0, 0.1, 0 );
+  // const geometry = new THREE.CylinderGeometry( 0.1, 0.1, 0.2, 32 ).translate( 0, 0.1, 0 );
 
-  function onSelect() {
+  // function onSelect() {
 
-    if ( reticle.visible ) {
+  //   if ( reticle.visible ) {
 
-      const material = new THREE.MeshPhongMaterial( { color: 0xffffff * Math.random() } );
-      const mesh = new THREE.Mesh( geometry, material );
-      reticle.matrix.decompose( mesh.position, mesh.quaternion, mesh.scale );
-      mesh.scale.y = Math.random() * 2 + 1;
-      scene.add( mesh );
+  //     const material = new THREE.MeshPhongMaterial( { color: 0xffffff * Math.random() } );
+  //     const mesh = new THREE.Mesh( geometry, material );
+  //     reticle.matrix.decompose( mesh.position, mesh.quaternion, mesh.scale );
+  //     mesh.scale.y = Math.random() * 2 + 1;
+  //     scene.add( mesh );
 
-    }
+  //   }
 
+  // }
+
+let testModel = null;
+
+function loadData() {
+  new GLTFLoader()
+    .setPath("assets/models/")
+    .load("basketball_hoop.glb", gltfReader);
+}
+
+function gltfReader(gltf) {
+  testModel = gltf.scene;
+
+  if (testModel != null) {
+    console.log("Model loaded:  " + testModel);
+  } else {
+    console.log("Load FAILED.  ");
   }
+}
+
+loadData();
+
+function onSelect() {
+  if (reticle.visible && testModel != null) {
+    const model = testModel.clone();
+    reticle.matrix.decompose(model.position, model.quaternion, model.scale);
+    scene.add(model);
+  }
+}
 
   controller = renderer.xr.getController( 0 );
   controller.addEventListener( 'select', onSelect );

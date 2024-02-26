@@ -11,16 +11,20 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 let throws = 0;
 let score = 0;
+let container = document.createElement( 'div' );
+document.body.appendChild( container );
 const scene = new THREE.Scene();
-const aspect = window.innerWidth / window.innerHeight;
-const camera = new THREE.PerspectiveCamera(75, aspect, 0.001, 1000);
+const camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
 
-const light = new THREE.AmbientLight(0xffffff, 1.0);
-scene.add(light);
+const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 3 );
+light.position.set( 0.5, 1, 0.25 );
+scene.add( light );
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.xr.enabled = true;
+container.appendChild( renderer.domElement );
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.listenToKeyEvents(window);
