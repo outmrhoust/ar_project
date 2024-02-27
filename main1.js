@@ -11,6 +11,7 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 let throws = 0;
 let score = 0;
+let relative = false;
 let container = document.createElement( 'div' );
 document.body.appendChild( container );
 const scene = new THREE.Scene();
@@ -123,12 +124,26 @@ function gltfReader(gltf) {
     testModel.position.x = -11;
     testModel.position.y = 2;
     testModel.position.z = 0;
+
   } else {
     console.log("Load FAILED.  ");
   }
 }
 
 loadData();
+function getRelativePosition() {
+  if (testModel) {
+    const groundBodyPosition = groundBody.position.clone();
+    const triggerBodyPosition = triggerBody.position.clone();
+    const testModelPosition = new THREE.Vector3(testModel.position.x, testModel.position.y, testModel.position.z);
+
+    const relativeGroundBodyPosition = groundBodyPosition.vsub(testModelPosition);
+    const relativeTriggerBodyPosition = triggerBodyPosition.vsub(testModelPosition);
+
+    console.log("Relative Ground Body Position: ", relativeGroundBodyPosition);
+    console.log("Relative Trigger Body Position: ", relativeTriggerBodyPosition);
+  }
+}
 
 camera.position.x = OPTIMAL_CAMERA_POSITION.x;
 camera.position.y = OPTIMAL_CAMERA_POSITION.y;
@@ -223,11 +238,16 @@ const animation = () => {
     const elapsed = clock.getElapsedTime();
 
     world.step(1 / 60);
-    // cannonDebugger.update();
+    cannonDebugger.update();
     ball.position.copy(ballBody.position);
     ball.quaternion.copy(ballBody.quaternion);
     hoop.position.copy(hoopBody.position);
     hoop.quaternion.copy(hoopBody.quaternion);
+    if (!relative){
+      getRelativePosition();
+      relative = true;
+    }
+    // getRelativePosition();
 
     // Render the scene
 
@@ -245,3 +265,30 @@ function onWindowResize() {
 
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
+// BoardBody
+// {
+//   "x": 0.5,
+//   "y": 1.2999999999999998,
+//   "z": 0
+// }
+
+// HoopBody
+// {
+//   "x": 1,
+//   "y": 1.0499999999999998,
+//   "z": 0
+// }
+
+// TriggerBody
+// {
+//   "x": 1,
+//   "y": 0.6499999999999999,
+//   "z": 0
+// }
+
+// GroundBody
+// {
+//   "x": 11,
+//   "y": -2,
+//   "z": 0
+// }
