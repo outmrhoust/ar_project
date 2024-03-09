@@ -56,7 +56,7 @@ function init() {
   );
 
   function onSelect() {
-    if (reticle.visible && Math.abs(planeOrientation.x) >= 0) {
+    if (reticle.visible && Math.abs(planeOrientation.x) >= 0.4) {
       console.log(reticle.matrixWorld[12], reticle.matrixWorld[13], reticle.matrixWorld[14])
       let hoopGeometry = new THREE.TorusGeometry(0.22, 0.02, 12, 12, 360);
       let hoopMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 });
@@ -276,14 +276,14 @@ function render(timestamp, frame) {
     ball.quaternion.copy(ballBody.quaternion);
   }
   if (reticle.visible && planeOrientation) {
-  if (hoopSelection && planeOrientation && Math.abs(planeOrientation.x) >= 0) {
+  if (hoopSelection && Math.abs(planeOrientation.x) >= 0.4) {
     reticle.material.color.set(0x17DF16);
-  } else if (hoopSelection && planeOrientation && Math.abs(planeOrientation.x) < 0.4) {
+  } else if (hoopSelection &&  Math.abs(planeOrientation.x) < 0.4) {
     reticle.material.color.set(0xF61010);
   }
-  if (groundSelection && planeOrientation && Math.abs(planeOrientation.x) <= 0.2) {
+  if (groundSelection &&  Math.abs(planeOrientation.x) <= 0.2) {
     reticle.material.color.set(0x17DF16);
-  } else if (groundSelection && planeOrientation && Math.abs(planeOrientation.x) > 0.2) {
+  } else if (groundSelection && Math.abs(planeOrientation.x) > 0.2) {
     reticle.material.color.set(0xF61010);
   }
 
