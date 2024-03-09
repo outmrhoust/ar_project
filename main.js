@@ -208,9 +208,9 @@ const hoopBodyMaterial = new CANNON.Material();
 const groundBodyMaterial = new CANNON.Material();
 const wallBodyMaterial = new CANNON.Material();
 
-const cannonDebugger = new CannonDebugger(scene, world, {
-  // options...
-});
+// const cannonDebugger = new CannonDebugger(scene, world, {
+//   // options...
+// });
 /**
  * Handles the window resize event.
  */
@@ -265,7 +265,7 @@ function render(timestamp, frame) {
       }
     }
   }
-  cannonDebugger.update();
+  // cannonDebugger.update();
   if (ball && controller && !onThrow && !isSelectEndProcessing) {
     ball.position.set(0, 0, -0.5).applyMatrix4(controller.matrixWorld);
     ball.quaternion.setFromRotationMatrix(controller.matrixWorld);
@@ -276,7 +276,7 @@ function render(timestamp, frame) {
     ball.quaternion.copy(ballBody.quaternion);
   }
   if (reticle.visible && planeOrientation) {
-  if (hoopSelection && planeOrientation && Math.abs(planeOrientation.x) >= 0.4) {
+  if (hoopSelection && planeOrientation && Math.abs(planeOrientation.x) >= 0) {
     reticle.material.color.set(0x17DF16);
   } else if (hoopSelection && planeOrientation && Math.abs(planeOrientation.x) < 0.4) {
     reticle.material.color.set(0xF61010);
