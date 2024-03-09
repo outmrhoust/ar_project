@@ -56,7 +56,7 @@ function init() {
   );
 
   function onSelect() {
-    if (reticle.visible && Math.abs(planeOrientation.x) >= 0.4) {
+    if (reticle.visible && Math.abs(planeOrientation.x) >= 0) {
       console.log(reticle.matrixWorld[12], reticle.matrixWorld[13], reticle.matrixWorld[14])
       let hoopGeometry = new THREE.TorusGeometry(0.22, 0.02, 12, 12, 360);
       let hoopMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 });
