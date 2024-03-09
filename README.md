@@ -1,29 +1,35 @@
-# three_vite
-Basic THREE.js template using [Vite](https://vitejs.dev).
+# Basketball AR Game
 
-Allows testing and modifying [official THREE.js examples](https://threejs.org/examples/) locally, at lightning speed.
-After trying Parcel and Rollup, this is probably the most developer-friendly to start THREE.js development in 2023 : it's insanely fast, it supports live reload out of the box, while remaining simple to use and to extend.
+This is an Augmented Reality (AR) basketball game built with [THREE.js](https://threejs.org), [CANNON.js](https://schteppe.github.io/cannon.js/) and [WEBXR](https://immersiveweb.dev/). The game allows you to place a basketball hoop in your environment and throw a basketball into it.
 
-## Batteries included
+## Features
 
-Pre-configured to support :
+- AR hit testing: The game uses the hit testing feature of the WebXR API to place the basketball hoop and the basketball in the real world.
 
-- glTF file loading
-- ammo.js wasm physics library
-- VSCode launch scripts
-- THREE.js type definitions : for IntelliSense in VS Code
+- Physics simulation: The game uses the CANNON.js physics engine to simulate the movement of the basketball.
 
-Have a look at vite.config.js and customize it to your needs (additional libraries, file formats etc.).
+- Mobile-friendly: The game is designed to be played on mobile devices with AR capabilities.
+
+## How to Play
+
+1\. Open the game in a web browser on your AR-capable device.
+
+2\. Point your device's camera at a wall surface where you want to place the basketball hoop.
+
+3\. Point your device's camera at a ground surface where you want to define the ground.
+
+4\. Aim your device at the hoop and tap the screen to throw the basketball.
 
 ## Installation
 
-Install [Node.js](https://nodejs.org)
+1\. Clone or download the repository.
 
-- Clone or download repo
-- run `npm install` : fetches and install all dependencies
-- `npm run build` : packages all code and resources into the `dist` folder
-- `npm run dev` : launches a server and opens your browser in `https://localhost:5173` by default
-- Edit your code : your changes are reflected instantly!
+2\. Run `npm install` to install the dependencies.
 
+3\. Run `npm run build` to build the project.
 
+4\. Run `npm run dev` to start the development server.
 
+## Deployment
+
+The project is alrady deployed on netlify and can be accessed via the following link https://superb-pie-5e4452.netlify.app/
